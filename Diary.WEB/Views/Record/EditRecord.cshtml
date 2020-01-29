@@ -1,0 +1,64 @@
+﻿@model Diary.WEB.ViewModels.Record.RecordViewModel
+
+<link href="~/css/edit.css" rel="stylesheet" type="text/css" />
+
+<form asp-action="EditRecord" asp-controller="Record" method="post" asp-route-id="@Model.Id">
+
+	<div class="box">
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<input type="hidden" asp-for="UserId" />
+
+		<div>
+			<span>Назва</span>
+			<input type="text" asp-for="Name" />
+		</div>
+
+		<div>
+			<span>Примітки</span>
+			<textarea type="text" asp-for="Text"></textarea>
+		</div>
+
+		@if (Model.UploadedFileViewModels != null)
+		{
+			foreach (var item in Model.UploadedFileViewModels)
+			{
+				@*<img src="@item.Path" width="189" height="255" alt="Упс, щось пішло не так(((" /><img />*@
+				<p>
+					<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+						@item.Name
+					</a>
+				</p>
+			}
+		}
+
+		<hr />
+
+		<div class="dataBox">
+			@if (Model.ModifiedDate != DateTime.MinValue)
+			{
+				<div class="ModifiedDate">
+					<p>Дата останього змінення: @Model.ModifiedDate</p>
+				</div>
+				<br />
+			}
+			else
+			{
+				<div class="ModifiedDate">
+					<p>Дата останього редагування: @Model.DateCreation</p>
+				</div>
+				<br />
+
+			}
+
+			<div class="DateCreation">
+				<p>Створено: @Model.DateCreation</p>
+			</div>
+		</div>
+
+		<div class="submit">
+			<input type="submit" value="Зберегти" />
+		</div>
+	</div>
+</form>

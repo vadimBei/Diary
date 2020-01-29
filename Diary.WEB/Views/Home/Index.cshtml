@@ -1,0 +1,78 @@
+﻿@model Diary.WEB.ViewModels.Common.IndexViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<link href="~/css/search.css" rel="stylesheet" type="text/css" />
+	<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-color:#0d1428">
+	<div class="search">
+		<form asp-controller="Home" asp-action="Index">
+			<p>
+				<input asp-for="SearchModel.SearchString" type="text" name="searchString" placeholder="Пошук" />
+				<input type="submit" value="Шукати" />
+			</p>
+			<p>
+				від <input asp-for="SearchModel.StartDate" type="date" name="startDate" />
+			</p>
+			<p class="endDate">
+				до <input asp-for="SearchModel.EndDate" type="date" name="endDate" />
+			</p>
+		</form>
+	</div>
+
+	<div>
+		@foreach (var record in Model.Records)
+		{
+			<div class="record">
+				<div>
+					<b>@record.Name</b>
+				</div>
+
+				<div class="text">
+					<span>@record.Text</span>
+				</div>
+
+				<div class="ded-inherit">
+					<div class="view-record">
+						<a asp-controller="Record" asp-action="ViewRecord" asp-route-id="@record.Id">Переглянути</a>
+					</div>
+
+					<div class="edit-record">
+						<a asp-controller="Record" asp-action="EditRecord" asp-route-id="@record.Id">Редагувати</a>
+					</div>
+
+					<div class="delete-record">
+						<a asp-controller="Record" asp-action="" asp-route-id="@record.Id">Видалити</a>
+					</div>
+				</div>
+
+				<hr />
+
+				<div class="date">
+					<div class="ModifiedDate">
+						<h6>Дата останнього редагування: @record.ModifiedDate</h6>
+					</div>
+					<br />
+
+					<div class="DateCreation">
+						<h6>Створено: @record.DateCreation</h6>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
+	<div>
+		@{
+			var prevDisabled = !Model.PagingViewModel.HasPreviousPage ? "disabled" : "";
+			var nextDisabled = !Model.PagingViewModel.HasNextPage ? "disabled" : "";
+		}
+
+		<a asp-action="Index" asp-route-page="@(Model.PagingViewModel.PageNumber - 1)" class="btn btn-default @prevDisabled">Назад</a>
+		<a asp-action="Index" asp-route-page="@(Model.PagingViewModel.PageNumber + 1)" class="btn btn-default @nextDisabled">Вперед</a>
+	</div>
+</body>
+</html>

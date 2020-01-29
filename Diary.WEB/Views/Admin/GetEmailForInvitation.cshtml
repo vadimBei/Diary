@@ -1,0 +1,34 @@
+﻿@model Diary.WEB.ViewModels.Invite.InviteViewModel
+
+<link href="~/css/invitation.css" rel="stylesheet" type="text/css" />
+<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
+
+<div class="invite">
+
+	<h2>Запросіть нового користувача!</h2>
+
+	<form asp-action="GetEmailForInvitation" asp-controller="Admin" method="post">
+
+		<div class="invite-box">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<input type="hidden" asp-for="DateCreation" />
+			<input type="hidden" asp-for="ModifiedDate" />
+
+			<p>
+				<span>Введіть текст запрошення</span>
+				<input type="text" placeholder="Текст запрошення" asp-for="Message" />
+				<span asp-validation-for="Message"></span>
+			</p>
+
+			<p>
+				так не буде
+				<label asp-for="EmailNewUser">Email користувача, якому надіслати запрошення:</label>
+				<input type="email" placeholder="Email" asp-for="EmailNewUser">
+				<span asp-validation-for="EmailNewUser"></span>
+			</p>
+
+			<input type="submit" value="Запросити" />
+		</div>
+	</form>
+</div>

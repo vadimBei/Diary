@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Diary.WEB.ViewModels.User.UserViewModel>
+
+@{
+	Layout = "~/Views/Shared/_Settings.cshtml";
+}
+
+<link href="~/css/usersList.css" rel="stylesheet" type="text/css" />
+<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
+
+@foreach (var user in Model)
+{
+	<div class="usersList">
+		<div>
+			<label asp-for="@user.UserName" class="nickname">Нікнейм:</label>
+			<span>@user.UserName</span>
+
+			<div class="conteiner-buttons">
+				<div class="delete-user-by-admin">
+					<a asp-action="" asp-controller="" asp-route-id="@user.Id">Видалити</a>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<label asp-for="@user.Email" class="email">Email:</label>
+			<span>@user.Email</span>
+		</div>
+	</div>
+}

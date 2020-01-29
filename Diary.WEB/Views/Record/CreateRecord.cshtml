@@ -1,0 +1,41 @@
+﻿@model Diary.WEB.ViewModels.Record.RecordViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<link href="~/css/createRecord.css" rel="stylesheet" type="text/css" />
+	<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-color: #0d1428">
+	<div class="box">
+
+		<form method="post" asp-controller="Record" asp-action="CreateRecord" enctype="multipart/form-data">
+
+			<h1>Новий запис</h1>
+
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<div>
+				<input asp-for="Name" placeholder="Назва" />
+				<span asp-validation-for="Name"></span>
+			</div>
+
+			<div>
+				<textarea asp-for="Text" placeholder="Примітки"></textarea>
+				<span asp-validation-for="Text"></span>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-10">
+					<input type="file" asp-for="UploadedFiles" multiple />
+				</div>
+			</div>
+
+			<div class="submit">
+				<input type="submit" value="Зберегти" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

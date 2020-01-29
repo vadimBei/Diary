@@ -1,0 +1,24 @@
+﻿.usersList {
+	margin: 3em 0 0 9.7em;
+	width: 50em;
+	height: 6.4em;
+	padding: 1em 0 1em 2em;
+	border: 2px solid #00ffff;
+	border-radius: 2em;
+	color: white;
+}
+
+.conteiner-buttons {
+	display: flex;
+	width: 8em;
+	float: right;
+	margin: 1em 2em 0 0;
+}
+
+.nickname {
+	margin: 0 2em 1em 0;
+}
+
+.email {
+	margin-right: 3.25em;
+}

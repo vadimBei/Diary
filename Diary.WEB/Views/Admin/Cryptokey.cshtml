@@ -1,0 +1,28 @@
+﻿@model Diary.WEB.ViewModels.User.UserViewModel
+
+@{
+	Layout = "~/Views/Shared/_Settings.cshtml";
+}
+
+
+<link href="~/css/cryptoKey.css" rel="stylesheet" type="text/css" />
+<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
+
+<form method="post" asp-action="CreateCryptokey" asp-controller="Admin">
+	<div class="cryptoBox">
+		<h3>Генерація ключа для шифрування даних</h3>
+
+		<div class="box">
+			@if (Model.EmptyCryptoKey == true)
+			{
+				<span>Створити ключ: </span>
+
+				<input class="generationCryptoKey" type="submit" value="Створити" />
+			}
+			else
+			{
+				<h4>У вас вже є ключ для шифрування даних! </h4>
+			}
+		</div>
+	</div>
+</form>

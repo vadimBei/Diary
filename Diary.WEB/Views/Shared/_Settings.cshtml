@@ -1,0 +1,33 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+	@{
+		bool available = User.IsInRole("admin");
+		if (available == true)
+		{
+			<div class="settings-buttons">
+				<a asp-action="Index" asp-controller="Admin">Користувачі</a>
+				<a asp-action="ChangePassword" asp-controller="Account">Пароль</a>
+				<a asp-action="CryptoKey" asp-controller="Admin">Шифрування</a>
+			</div>
+		}
+		else
+		{
+			<div class="settings-buttons">
+				<a asp-action="ChangePassword" asp-controller="Account">Пароль</a>
+				<a asp-action="SettingsByUser" asp-controller="User">Мій акаунт</a>
+			</div>
+		}
+	}
+
+	<div class="container body-content">
+		@RenderBody()
+	</div>
+</body>
+</html>

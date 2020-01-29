@@ -1,0 +1,45 @@
+﻿.invite {
+	color: white;
+	margin: 0 0 0 10em;
+	padding: 0 0 0 4em;
+}
+
+.invite h2 {
+	text-align: center;
+}
+
+.invite-box {
+	margin: 3em 0 0 0;
+}
+
+.invite-box input[type = "submit"] {
+	height: 2em;
+	width: 6em;
+	cursor: pointer;
+	border-radius: 24px;
+	text-align: center;
+	background-color: #2ecc71;
+	border: 2px solid #2ecc71;
+	margin: 3em 0 0 40em;
+}
+
+.invite-box input[type = "email"] {
+	color: black;
+	margin: 2em 0 0 0;
+	outline: none;
+	border: 2px solid aqua;
+	border-radius: 2em;
+	padding: 0 0 0 1em;
+	height: 2em;
+	background-color: none;
+}
+
+.invite-box input[type = "text"] {
+	color: black;
+	outline: none;
+	border: 2px solid aqua;
+	border-radius: 2em;
+	padding: 0 0 0 1em;
+	height: 2em;
+	background-color: none;
+}

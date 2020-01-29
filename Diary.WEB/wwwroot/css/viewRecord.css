@@ -1,0 +1,57 @@
+﻿.viewBox {
+	border-radius: 24px;
+	width: 40em;
+	height: 20.2em;
+	margin: 2em 0 0 20em;
+	color: white;
+	padding: 3em 3em 0em 3em;
+}
+
+.viewBox p{
+	color: white;
+}
+
+.viewBox hr {
+	border-color: aqua;
+	margin: 2em 0 1em 0;
+}
+
+.viewBox input[type="text"]{
+	color: white;
+	background: none;
+	
+}
+
+.textBox{
+	margin: 0 0 0 0;
+}
+
+.text{
+	margin: 0 0 0 0.5em;
+}
+
+.nameBox{
+	margin: 0 0 2em;
+}
+
+.comeBack a {
+	text-decoration: none;
+	border: 0;
+	background: none;
+	display: block;
+	margin: 0 0 0 0;
+	text-align: center;
+	border: 2px solid #2ecc71;
+	padding: 0 0;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+	height: 2em;
+	width: 6em;
+}
+
+.comeBack a:hover {
+	background: #2ecc71;
+}

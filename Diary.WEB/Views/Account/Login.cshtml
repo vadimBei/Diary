@@ -1,0 +1,31 @@
+﻿@model Diary.WEB.ViewModels.Account.LoginViewModel
+
+
+<title>Вхід на сайт • Day book</title>
+<link href="~/css/login.css" rel="stylesheet" type="text/css" />
+
+<form class="box" method="post" asp-controller="Account" asp-action="Login"
+	  asp-route-returnUrl="@Model.ReturnUrl">
+
+	<h1>Day book</h1>
+
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+	<div>
+		<span asp-validation-for="UserName"></span>
+		<input placeholder="Нікнейм" asp-for="UserName" />
+	</div>
+
+	<div>
+		<span asp-validation-for="Password"></span>
+		<input placeholder="Пароль" asp-for="Password" />
+	</div>
+
+	<div>
+		<a asp-action="SendLinkForChengePassword" asp-controller="Account">Забули пароль?</a>
+	</div>
+
+	<div class="login-submit">
+		<input type="submit" value="Ввійти">
+	</div>
+</form>

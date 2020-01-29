@@ -1,0 +1,30 @@
+﻿@model Diary.WEB.ViewModels.Record.RecordViewModel
+
+<link href="~/css/viewRecord.css" rel="stylesheet" type="text/css" />
+
+
+<div class="viewBox">
+	<div class="nameBox">
+		<b>@Model.Name</b>
+	</div>
+
+	<div class="textBox">
+		<p class="text">@Model.Text</p>
+	</div>
+
+	@foreach (var item in Model.UploadedFileViewModels)
+	{
+		@*<img src="@item.Path" width="189" height="255" alt="Упс, щось пішло не так(((" /><img />*@
+		<p>
+			<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+				@item.Name
+			</a>
+		</p>
+	}
+
+	<hr />
+
+	<div class="comeBack">
+		<a asp-action="Index" asp-controller="Home">Назад</a>
+	</div>
+</div>

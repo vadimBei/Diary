@@ -5,7 +5,7 @@ namespace Diary.BLL.Services.EmailSender
 {
 	public class EmailSenderService : IEmailSenderService
 	{
-		public async Task SendEmail(string email, string subject, string message)
+		public async Task SendEmailAcync(string email, string subject, string message)
 		{
 			var emailMessage = new MimeMessage();
 

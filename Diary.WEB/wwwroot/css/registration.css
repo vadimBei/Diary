@@ -1,32 +1,56 @@
-﻿/*body {
-	font-family: sans-serif;
-	background-color: #0d1428;
-}*/
-
-.box {
+﻿.register-form {
+	margin: 1em 0 0 29em;
 	text-align: center;
+	width: 25em;
+	height: 40em;
+	border-radius: 24px;
+	background-color: #202020;
+	padding: 3em 3em 0 3em;
 }
 
-.box h1 {
-	color: white;
-}
+	.register-form h1 {
+		color: white;
+		margin-bottom: 1em;
+	}
 
-.box input[type = "text"], .box input[type = "password"] {
+	.register-form input[type = "text"], .register-form input[type = "password"],
+	.register-form input[type = "email"] {
+		background: #2b2b2b;
+		border: none;
+		display: block;
+		margin-bottom: 1em;
+		text-align: center;
+		padding: 0.5em 10px;
+		width: 100%;
+		height: 3em;
+		outline: none;
+		color: white;
+		transition: 0.25s;
+	}
+
+		.register-form input[type = "text"]:focus, .register-form input[type = "password"]:focus,
+		.register-form input[type = "email"]:focus {
+			background: #484848 !important;
+		}
+
+.register-submit input[type = "submit"] {
 	background: none;
-	background-color: #0d1428;
 	display: block;
 	margin: 20px auto;
 	text-align: center;
-	border: 2px solid #3498db;
-	padding: 0.5em 10px;
-	width: 200px;
+	border: none;
+	padding: 0.5em 1em;
 	outline: none;
 	color: white;
-	border-radius: 24px;
 	transition: 0.25s;
+	cursor: pointer;
+	width: 100%;
 }
 
-.box input[type = "text"]:focus, .box input[type = "password"]:focus {
-	width: 280px;
-	border-color: #2ecc71;
+	.register-submit input[type = "submit"]:hover {
+		background: #2ecc71;
+	}
+
+.captcha {
+	margin: 0 0 1em 0;
 }

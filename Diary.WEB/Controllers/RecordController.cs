@@ -8,6 +8,7 @@ using Diary.DAL.Common;
 using Diary.DAL.Entities;
 using Diary.WEB.ViewModels.Record;
 using Diary.WEB.ViewModels.UploadedFile;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,7 @@ using System.Threading.Tasks;
 
 namespace Diary.WEB.Controllers
 {
+	[Authorize(Roles = "admin, user")]
 	public class RecordController : Controller
 	{
 		private readonly IAesCryptoProviderService _aesCryptoProvider;
@@ -61,11 +63,6 @@ namespace Diary.WEB.Controllers
 		[DisableRequestSizeLimit]
 		public async Task<IActionResult> CreateRecord(RecordViewModel recordViewModel)
 		{
-			if (!HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Account", "Login");
-			}
-
 			if (!ModelState.IsValid)
 			{
 				ModelState.AddModelError(string.Empty, Diary.Resource.Resource.DBError);
@@ -92,51 +89,8 @@ namespace Diary.WEB.Controllers
 
 					var recordId = _recordService.Create(createModel);
 
-
-					foreach (var formFile in recordViewModel.UploadedFiles)
-					{
-						var formType = formFile.ContentType;
-
-						var uploadedFileViewModel = new UploadedFileViewModel();
-
-						if (GetMimeTypeOfPhotos().TryGetValue(formType, out string mime))
-						{
-							//path for save images
-							var pathForImage = Path.Combine(_hostingEnvironment.WebRootPath, "images", formFile.FileName);
-							using (Stream stream = formFile.OpenReadStream())
-							{
-								using (Image image = Image.Load(stream))
-								{
-									image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2));
-									image.Save(pathForImage);
-								}
-							}
-
-							uploadedFileViewModel.Path = pathForImage;
-						}
-						else
-						{
-							//path for save files
-							var pathForFile = Path.Combine(_hostingEnvironment.WebRootPath, "Files", formFile.FileName);
-							using (FileStream fileStream = new FileStream(pathForFile, FileMode.Create))
-							{
-								await formFile.CopyToAsync(fileStream);
-							}
-
-							uploadedFileViewModel.Path = pathForFile;
-						}
-
-						var newFile = _mapper.Map<UploadedFileCreateModel>(new UploadedFileCreateModel
-						{
-							Name = formFile.FileName,
-							Path = uploadedFileViewModel.Path,
-							DateCreation = DateTime.Now,
-							ModifiedDate = DateTime.Now,
-							RecordId = recordId
-						});
-
-						_uploadedFileService.Create(newFile);
-					}
+					//method for upload files
+					UploadFile(recordId, recordViewModel.UploadedFiles);
 				}
 				else
 				{
@@ -166,11 +120,6 @@ namespace Diary.WEB.Controllers
 		[HttpGet]
 		public async Task<IActionResult> EditRecord(Guid id)
 		{
-			if (!HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Account", "Login");
-			}
-
 			if (id == null)
 			{
 				return NotFound();
@@ -185,18 +134,22 @@ namespace Diary.WEB.Controllers
 
 			var filesViewModel = new List<UploadedFileViewModel>();
 
-			foreach (var file in filesToView)
+			if (filesToView != null)
 			{
-				var fileToView = _mapper.Map<UploadedFileViewModel>(new UploadedFileViewModel
+				foreach (var file in filesToView)
 				{
-					Name = file.Name,
-					Path = file.Path,
-					DateCreation = file.DateCreation,
-					ModifiedDate = file.ModifiedDate,
-					RecordId = file.RecordId
-				});
+					var fileToView = _mapper.Map<UploadedFileViewModel>(new UploadedFileViewModel
+					{
+						Name = file.Name,
+						Path = file.Path,
+						DateCreation = file.DateCreation,
+						ModifiedDate = file.ModifiedDate,
+						RecordId = file.RecordId,
+						IsImage = file.IsImage
+					});
 
-				filesViewModel.Add(fileToView);
+					filesViewModel.Add(fileToView);
+				}
 			}
 
 			var recordToView = _mapper.Map<RecordViewModel>(new RecordViewModel
@@ -214,14 +167,10 @@ namespace Diary.WEB.Controllers
 		}
 
 		[HttpPost]
+		[DisableRequestSizeLimit]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> EditRecord(RecordViewModel recordViewModel)
 		{
-			if (!HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Account", "Login");
-			}
-
 			if (!ModelState.IsValid)
 			{
 				ModelState.AddModelError(string.Empty, Diary.Resource.Resource.ModelIsNotValid);
@@ -235,6 +184,12 @@ namespace Diary.WEB.Controllers
 
 				var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
+				if (recordViewModel.UploadedFiles != null)
+				{
+					//method for upload files
+					UploadFile(record.Id, recordViewModel.UploadedFiles);
+				}
+
 				var recordToUpdate = _mapper.Map<RecordUpdateModel>(new RecordUpdateModel
 				{
 					Id = recordViewModel.Id,
@@ -243,7 +198,7 @@ namespace Diary.WEB.Controllers
 					DateCreation = record.DateCreation,
 					Text = _aesCryptoProvider.EncryptValue(recordViewModel.Text, currentUser.CryptoKey, record.IvKey),
 					UserId = recordViewModel.UserId,
-					IvKey = record.IvKey
+					IvKey = record.IvKey,
 				});
 
 				_recordService.Update(recordToUpdate);
@@ -265,11 +220,6 @@ namespace Diary.WEB.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ViewRecord(Guid id)
 		{
-			if (!HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Account", "Login");
-			}
-
 			if (id == null)
 				return NotFound();
 
@@ -292,6 +242,7 @@ namespace Diary.WEB.Controllers
 						DateCreation = file.DateCreation,
 						ModifiedDate = file.ModifiedDate,
 						RecordId = file.RecordId,
+						IsImage = file.IsImage
 					});
 
 					filesViewModel.Add(fileToView);
@@ -311,18 +262,64 @@ namespace Diary.WEB.Controllers
 			return View(recordToView);
 		}
 
+		public void UploadFile(Guid recordId, List<IFormFile> formFiles)
+		{
+			foreach (var formFile in formFiles)
+			{
+				var formType = formFile.ContentType;
+
+				var uploadedFileViewModel = new UploadedFileViewModel();
+
+				if (GetMimeTypeOfPhotos().ContainsValue(formType))
+				{
+					//path for save images
+					var pathForImage = Path.Combine(_hostingEnvironment.WebRootPath, "images", formFile.FileName);
+
+					using (Stream stream = formFile.OpenReadStream())
+					{
+						using (Image image = Image.Load(stream))
+						{
+							image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2));
+							image.Save(pathForImage);
+						}
+					}
+
+					uploadedFileViewModel.IsImage = true;
+					uploadedFileViewModel.Path = pathForImage;
+				}
+				else
+				{
+					//path for save files
+					var pathForFile = Path.Combine(_hostingEnvironment.WebRootPath, "Files", formFile.FileName);
+
+					using (FileStream fileStream = new FileStream(pathForFile, FileMode.Create))
+					{
+						formFile.CopyTo(fileStream);
+					}
+
+					uploadedFileViewModel.Path = pathForFile;
+				}
+
+				var newFile = _mapper.Map<UploadedFileCreateModel>(new UploadedFileCreateModel
+				{
+					Name = formFile.FileName,
+					Path = uploadedFileViewModel.Path,
+					DateCreation = DateTime.Now,
+					ModifiedDate = DateTime.Now,
+					RecordId = recordId,
+					IsImage = uploadedFileViewModel.IsImage
+				});
+
+				_uploadedFileService.Create(newFile);
+			}
+		}
+
 		public async Task<IActionResult> Download(string fileName)
 		{
 			if (fileName == null)
 				return Content("Ім'я файлу відсутнє");
 
 			var exitingItem = await _dbContext.UploadedFiles.FirstOrDefaultAsync(u => u.Name == fileName);
-			//var exitingItem = _uploadedFileService.Find(x => x.Name == fileName)
-
-			//var item = _mapper.Map<UploadedFileViewModel>(new UploadedFileViewModel
-			//{
-			//	Name = exitingItem
-			//});
 
 			var memory = new MemoryStream();
 

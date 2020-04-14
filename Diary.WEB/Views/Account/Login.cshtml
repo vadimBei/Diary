@@ -1,31 +1,48 @@
 ﻿@model Diary.WEB.ViewModels.Account.LoginViewModel
 
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <title>Вхід на сайт • Day book</title>
 <link href="~/css/login.css" rel="stylesheet" type="text/css" />
 
-<form class="box" method="post" asp-controller="Account" asp-action="Login"
+<form class="login-form" method="post" asp-controller="Account" asp-action="Login"
 	  asp-route-returnUrl="@Model.ReturnUrl">
+	<div class="main">
+		<div class="siteName">
+			<h1>Day book</h1>
+		</div>
 
-	<h1>Day book</h1>
+		<div class="textbox">
+			<input placeholder="Username" asp-for="UserName" type="text" />
+			<span class="check-message hiddenReq">Required</span>
+		</div>
 
-	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="textbox">
+			<input placeholder="Password" asp-for="Password" type="password" />
+			<span class="check-message hiddenReq">Required</span>
+		</div>
 
-	<div>
-		<span asp-validation-for="UserName"></span>
-		<input placeholder="Нікнейм" asp-for="UserName" />
-	</div>
+		<div class="forgotPass">
+			<a asp-action="SendLinkForChengePassword" asp-controller="Account">Forgot Your Password</a>
+		</div>
 
-	<div>
-		<span asp-validation-for="Password"></span>
-		<input placeholder="Пароль" asp-for="Password" />
-	</div>
-
-	<div>
-		<a asp-action="SendLinkForChengePassword" asp-controller="Account">Забули пароль?</a>
-	</div>
-
-	<div class="login-submit">
-		<input type="submit" value="Ввійти">
+		<div class="logInBut">
+			<input type="submit" value="Log in">
+		</div>
 	</div>
 </form>
+
+<script type="text/javascript">
+	debugger;
+	$(".textbox input").focusout(function () {
+		if ($(this).val() == "") {
+			$(this).siblings().removeClass("hiddenReq");
+			$(this).css("background", "#554343");
+		} else {
+			$(this).siblings().addClass("hiddenReq");
+			$(this).css("background", "#484848");
+		}
+	})
+</script>

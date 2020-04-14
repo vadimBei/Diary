@@ -1,0 +1,71 @@
+﻿.vertical-menu {
+	margin-top: 1em;
+	margin-left: 4.5em;
+	width: 10em;
+	float: left;
+}
+
+	.vertical-menu a {
+		float: left;
+		text-decoration: none;
+		background: #2b2b2b;
+		display: block;
+		margin: 0.5em auto;
+		text-align: center;
+		border: 2px solid #2b2b2b;
+		width: 8em;
+		padding: 4px;
+		color: white;
+		border-radius: 24px;
+		cursor: pointer;
+	}
+
+		.vertical-menu a:hover {
+			background: #484848;
+			border-color: #484848;
+			text-decoration: none;
+			color: white;
+		}
+
+.horNavbar {
+	border-color: #2b2b2b;
+	background: #2b2b2b;
+}
+
+	.horNavbar a {
+		color: white;
+	}
+
+	.horNavbar ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.horNavbar h3 {
+		margin: 0.5em 0 0 0;
+	}
+
+.settings-buttons {
+	margin: 1.5em 0 2em 10em;
+	display: block;
+}
+
+	.settings-buttons a {
+		float: left;
+		text-decoration: none;
+		background: #202020;
+		display: block;
+		margin: 0 0.5em 0 0.5em;
+		text-align: center;
+		width: 8em;
+		padding: 4px;
+		color: white;
+		border-radius: 24px;
+		cursor: pointer;
+	}
+
+		.settings-buttons a:hover {
+			background: #484848;
+		}

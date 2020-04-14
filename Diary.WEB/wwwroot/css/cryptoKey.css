@@ -1,14 +1,44 @@
-﻿.cryptoBox{
-	display: block;
-	margin: 3em 0 0 10em;
+﻿.cryptoBox {
+	margin: 5em auto 0;
+	padding: 2em 3em;
 	color: white;
+	width: 45em;
+	height: 15em;
+	border-radius: 24px;
+	background: #202020;
 }
 
-.cryptoBox h3{
-	margin: 0 0 0 10em;
-}
+	.cryptoBox h3 {
+		text-align: center;
+	}
 
-.box{
-	margin: 2em 0 0 0;
+	.cryptoBox h4{
+		text-align: center;
+		margin: 2em 0; 
+	}
+
+.title {
 	display: block;
+	font-size: 16px;
+	margin: 2em 0 0 0;
 }
+
+.generationCryptoKey {
+	border: 0;
+	display: block;
+	background-color: #202020;
+	margin-top: 1em;
+	float: right;
+	text-align: center;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+	height: 2em;
+	width: 6em;
+}
+
+	.generationCryptoKey:hover {
+		background: #484848;
+	}

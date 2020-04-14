@@ -27,7 +27,7 @@ namespace Diary.BLL.Services.SearchService
 			_accessor = accessor;
 		}
 
-		public async Task<IEnumerable<RecordModel>> RecordsByCurrentUser(SearchModel searchModel)
+		public async Task<IEnumerable<RecordModel>> RecordsByCurrentUserAcync(SearchModel searchModel)
 		{
 			var minDate = DateTime.MinValue;
 

@@ -3,7 +3,10 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
 	padding-top: 50px;
 	padding-bottom: 20px;
-	background-color: #0d1428;
+	background-image: url("/books.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed;
 }
 
 /* Wrapping element */

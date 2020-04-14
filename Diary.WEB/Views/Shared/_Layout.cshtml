@@ -7,16 +7,18 @@
 
 	<environment include="Development">
 		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-		<link rel="stylesheet" href="~/css/site.css" />
 		<link href="~/css/indexRecord.css" rel="stylesheet" type="text/css" />
 		<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
 		<link href="~/css/site.css" rel="stylesheet" type="text/css" />
+		<link href="~/css/siteMenu.css" rel="stylesheet" type="text/css" />
+
 	</environment>
 	<environment exclude="Development">
 		<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
 			  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
 			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 	</environment>
 </head>
 <body>
@@ -24,15 +26,11 @@
 		<div class="container">
 			<div>
 				<ul>
-					<li class="diary"><h4><a asp-action="Index" asp-controller="Home">Diary</a></h4></li>
+					<li class="diary"><h4><a asp-action="Index" asp-controller="Home">Day book</a></h4></li>
 					<li>
 						@if (User.Identity.IsAuthenticated)
 						{
 							<h4 class="logoff"><a asp-controller="Account" asp-action="LogOff">Вийти</a></h4>
-						}
-						else
-						{
-							<h4 class="login"><a asp-controller="Account" asp-action="Login">Вхід</a></h4>
 						}
 					</li>
 				</ul>

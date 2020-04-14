@@ -7,6 +7,7 @@ using Diary.BLL.Services.SortingService;
 using Diary.DAL.Entities;
 using Diary.WEB.ViewModels.Common;
 using Diary.WEB.ViewModels.Record;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace Diary.WEB.Controllers
 {
+	[Authorize(Roles = "admin, user")]
 	public class HomeController : Controller
 	{
 		private readonly IAesCryptoProviderService _aesCryptoProvider;
@@ -40,24 +42,26 @@ namespace Diary.WEB.Controllers
 
 		public async Task<IActionResult> Index(string searchString, DateTime startDate, DateTime endDate, int page = 1)
 		{
-			if (!HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Login", "Account");
-			}
-
 			var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
 			SearchModel search = new SearchModel(startDate, endDate, searchString);
 
-			IEnumerable<RecordModel> recordByCurrentUser = await _searchService.RecordsByCurrentUser(search);
+			IEnumerable<RecordModel> recordByCurrentUser = await _searchService.RecordsByCurrentUserAcync(search);
 
-			//// sort by date
+			// sort by date
 			recordByCurrentUser = _sortingService.SortingRecordsByDate(recordByCurrentUser);
 
 			var decryptedRecords = new List<RecordViewModel>();
 
 			foreach (var record in recordByCurrentUser)
 			{
+				string decriptedText = _aesCryptoProvider.DecryptValue(record.Text, currentUser.CryptoKey, record.IvKey);
+
+				if (decriptedText.Length > 200)
+				{
+					decriptedText = decriptedText.Substring(0, 200);
+				}
+
 				var decryptedRecord = _mapper.Map<RecordViewModel>(new RecordViewModel
 				{
 					Id = record.Id,
@@ -65,7 +69,7 @@ namespace Diary.WEB.Controllers
 					DateCreation = record.DateCreation,
 					ModifiedDate = record.ModifiedDate,
 					IvKey = record.IvKey,
-					Text = _aesCryptoProvider.DecryptValue(record.Text, currentUser.CryptoKey, record.IvKey)
+					Text = decriptedText
 				});
 
 				decryptedRecords.Add(decryptedRecord);
@@ -77,9 +81,10 @@ namespace Diary.WEB.Controllers
 				decryptedRecords = decryptedRecords.Where(r => r.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
 			}
 
-			int pageSize = 5; //number records on page
+			//number records on page
+			int pageSize = 5;
 			var count = decryptedRecords.Count();
-			
+
 			var listToDisplay = decryptedRecords.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
 			PagingViewModel pagingViewModel = new PagingViewModel(count, page, pageSize);

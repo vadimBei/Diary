@@ -4,18 +4,16 @@
 	Layout = "~/Views/Shared/_Settings.cshtml";
 }
 
-
 <link href="~/css/cryptoKey.css" rel="stylesheet" type="text/css" />
-<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
 
 <form method="post" asp-action="CreateCryptokey" asp-controller="Admin">
 	<div class="cryptoBox">
 		<h3>Генерація ключа для шифрування даних</h3>
 
-		<div class="box">
-			@if (Model.EmptyCryptoKey == true)
+		<div>
+			@if (Model.EmptyCryptoKey == false)
 			{
-				<span>Створити ключ: </span>
+				<span class="title">Створити ключ: </span>
 
 				<input class="generationCryptoKey" type="submit" value="Створити" />
 			}

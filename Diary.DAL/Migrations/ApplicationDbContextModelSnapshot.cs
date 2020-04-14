@@ -109,6 +109,8 @@ namespace Diary.DAL.Migrations
 
                     b.Property<DateTime>("DateCreation");
 
+                    b.Property<bool>("IsImage");
+
                     b.Property<DateTime>("ModifiedDate");
 
                     b.Property<string>("Name");

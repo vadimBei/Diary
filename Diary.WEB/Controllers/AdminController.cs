@@ -84,7 +84,7 @@ namespace Diary.WEB.Controllers
 				new { token = invite.Id },
 				protocol: HttpContext.Request.Scheme);
 
-			await _emailSenderService.SendEmail(inviteViewModel.EmailNewUser,
+			await _emailSenderService.SendEmailAcync(inviteViewModel.EmailNewUser,
 				"Запрошення для реєстрації на сайті",
 				$"{inviteViewModel.Message} <a href='{callBack}'>Diary</a>");
 

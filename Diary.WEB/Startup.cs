@@ -81,6 +81,7 @@ namespace Diary.WEB
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
+
 			loggerFactory.AddDebug();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();

@@ -1,45 +1,69 @@
 ﻿.invite {
 	color: white;
-	margin: 0 0 0 10em;
-	padding: 0 0 0 4em;
-}
-
-.invite h2 {
-	text-align: center;
-}
-
-.invite-box {
-	margin: 3em 0 0 0;
-}
-
-.invite-box input[type = "submit"] {
-	height: 2em;
-	width: 6em;
-	cursor: pointer;
+	margin: 5em auto 0;
+	padding: 1em 4em 0 4em;
+	width: 50em;
+	height: 23.5em;
+	background: #202020;
 	border-radius: 24px;
-	text-align: center;
-	background-color: #2ecc71;
-	border: 2px solid #2ecc71;
-	margin: 3em 0 0 40em;
+}
+
+	.invite h2 {
+		text-align: center;
+		margin-bottom: 2em;
+	}
+
+.invite-box span {
+	font-size: 16px;
 }
 
 .invite-box input[type = "email"] {
-	color: black;
-	margin: 2em 0 0 0;
+	color: white;
+	margin: 2em 0 0 1em;
 	outline: none;
-	border: 2px solid aqua;
+	border: 2px solid #2b2b2b;
+	background-color: #2b2b2b;
 	border-radius: 2em;
 	padding: 0 0 0 1em;
-	height: 2em;
-	background-color: none;
+	height: 2.5em;
 }
 
+	.invite-box input[type = "email"]:focus {
+		border: 2px solid #484848;
+		background-color: #484848;
+	}
+
 .invite-box input[type = "text"] {
-	color: black;
 	outline: none;
-	border: 2px solid aqua;
 	border-radius: 2em;
 	padding: 0 0 0 1em;
-	height: 2em;
-	background-color: none;
+	height: 2.5em;
+	border: 2px solid #2b2b2b;
+	background-color: #2b2b2b;
+	margin-left: 1em;
+	color: white;
 }
+
+	.invite-box input[type = "text"]:focus {
+		background: #484848;
+		border: 2px solid #484848;
+	}
+
+.send-invitation input[type = "submit"] {
+	border: 0;
+	background-color: #202020;
+	text-align: center;
+	float: right;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+	height: 2em;
+	width: 7em;
+	margin-top: 2em;
+}
+
+	.send-invitation input[type = "submit"]:hover {
+		background: #484848;
+	}

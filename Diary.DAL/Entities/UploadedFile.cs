@@ -21,6 +21,8 @@ namespace Diary.DAL.Entities
 
 		public string Path { get; set; }
 
+		public bool IsImage { get; set; }
+
 		public Guid RecordId { get; set; }
 
 		public Record Record { get; set; }

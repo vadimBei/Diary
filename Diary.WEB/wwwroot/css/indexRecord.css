@@ -1,26 +1,63 @@
-﻿.record {
-	border: 2px solid #00ffff;
+﻿body {
+	font-family: Roboto,sans-serif;
+	position: relative;
+	height: 100%;
+}
+
+.record {
+	border: 4px solid #2b2b2b;
 	border-radius: 24px;
 	width: 40em;
 	height: 23em;
 	margin-top: 2em;
 	margin-left: 13em;
 	color: white;
-	padding: 3em 3em 0em 3em;
+	padding: 1em 3em 0em 3em;
 }
 
-.vertical-menu {
+	.record hr {
+		margin: 5em 0em 0 0em;
+		border-color: #202020;
+	}
+
+.nameRecord {
+	background: #202020;
+	width: 100%;
+	height: 3em;
+	border-radius: 24px;
+	padding: 0.9em 0 0 2em;
+	font-size: 16px;
+}
+
+.textRecord {
+	margin: 1em 0 0 0;
+	padding: 1em 2em 0 2em;
+	color: white;
+	height: 8em;
+	width: 100%;
+	background: #202020;
+	resize: none;
+	font-size: 14px;
+	border-radius: 24px;
+}
+
+.date {
+	color: white;
 	float: left;
+	display: block;
 }
 
-.vertical-menu a {
+.date-cteation{
+	margin-top: -0.5em;
+}
+
+.view-record a {
 	float: left;
 	text-decoration: none;
-	background: none;
+	background: #202020;
 	display: block;
-	margin: 10px auto;
+	margin: 0 0.5em 0 0.5em;
 	text-align: center;
-	border: 2px solid #00ffff;
 	width: 8em;
 	padding: 4px;
 	color: white;
@@ -28,36 +65,52 @@
 	cursor: pointer;
 }
 
-.vertical-menu a:hover {
-	background: #2ecc71;
-	border-color: #2ecc71;
+	.view-record a:hover {
+		background: #484848;
+		text-decoration: none;
+		color: white;
+	}
+
+.edit-record a {
+	float: left;
 	text-decoration: none;
-}
-
-.record hr {
-	margin: 5em 0em 0 0em;
-	border-color: aqua;
-}
-
-.DateCreation {
-	margin: 0 0 0 21.5em;
-}
-
-.ModifiedDate{
-	float: right;
-}
-
-.text {
-	margin: 1.7em 0 0 0;
+	background: #202020;
+	display: block;
+	margin: 0 0.5em 0 0.5em;
+	text-align: center;
+	width: 8em;
+	padding: 4px;
 	color: white;
-	height: 8em;
-	width: 33.3em;
-	background-color: #0d1428;
-	resize: none;
-	border-color: #0d1428;
-	font-size: 13px;
+	border-radius: 24px;
+	cursor: pointer;
 }
 
-.date {
-	color: #A9A9A9;
+	.edit-record a:hover {
+		background: #484848;
+		text-decoration: none;
+		color: white;
+	}
+
+.delete-record a {
+	float: left;
+	text-decoration: none;
+	background: #202020;
+	display: block;
+	margin: 0 0.5em 0 0.5em;
+	text-align: center;
+	width: 8em;
+	padding: 4px;
+	color: white;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+	.delete-record a:hover {
+		background: #484848;
+		text-decoration: none;
+		color: white;
+	}
+
+.ded-inherit {
+	margin: 2em 0 0 3em;
 }

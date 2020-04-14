@@ -1,33 +1,105 @@
-﻿body {
-	font-family: sans-serif;
+﻿* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "hind", sans-serif;
+	text-decoration: none;
 }
 
-.box {
-	margin-bottom: 8em;
-	margin-top: 8em;
-	text-align: center;
+body {
+	height: 100vh;
+	display: flex;
+	align-content: center;
+	justify-content: center;
 }
 
-.box h1 {
-	color: white;
-}
-
-.box input[type = "text"], .box input[type = "password"] {
-	border: 0;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 2px solid #3498db;
-	padding: 14px 10px;
-	width: 200px;
-	outline: none;
-	color: white;
+.login-form {
+	width: 25em;
+	height: 30em;
+	padding: 3em 3em 0 3em;
+	margin: 7em 0 0 29em;
+	background-color: #202020;
 	border-radius: 24px;
-	transition: 0.25s;
 }
 
-.box input[type = "text"]:focus, .box input[type = "password"]:focus {
-	width: 280px;
-	border-color: #2ecc71;
+.textbox {
+	width: 100%;
+	height: 50px;
+	position: relative;
+	margin-top: 15px;
+}
+
+.textbox input {
+	width: 100%;
+	height: 3em;
+	border: none;
+	background: #2b2b2b;
+	padding: 0 15px;
+	font-size: 16px;
+	outline: none;
+	color: #f4f4f4;
+}
+
+.textbox input:focus {
+	background: #484848 !important;
+}
+
+.check-message {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	color: #fff;
+	text-transform: uppercase;
+	transform: translateY(-50%);
+}
+
+.textbox input:focus + .check-message {
+	display: none;
+}
+
+.forgotPass {
+	float: right;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.forgotPass a{
+	color: #f4f4f480;
+	text-decoration: none;
+}
+
+.siteName h1 {
+	color: white;
+	margin: 0 0 2em 1.4em;
+	
+}
+
+.logInBut input[type = "submit"] {
+	height: 2.3em;
+	width: 100%;
+	margin: 2em 0 0 0;
+	border: none;
+	background: none;
+	color: white;
+	outline: none;
+}
+
+.logInBut input[type = "submit"]:hover {
+	background: #2ecc71;
+}
+
+.hiddenReq{
+	display: none;
+}
+
+@media screen and (max-width:470px) {
+	body {
+		background: #202020;
+	}
+
+	.login-form {
+		width: 100%;
+		padding: 0 15px;
+	}
 }

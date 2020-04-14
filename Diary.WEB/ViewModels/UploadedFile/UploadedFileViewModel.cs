@@ -10,6 +10,8 @@ namespace Diary.WEB.ViewModels.UploadedFile
 
 		public string Path { get; set; }
 
+		public bool IsImage { get; set; }
+
 		public Guid RecordId { get; set; }
 
 		public RecordViewModel RecordViewModel { get; set; }

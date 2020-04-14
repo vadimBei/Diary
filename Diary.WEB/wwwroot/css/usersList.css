@@ -1,11 +1,12 @@
 ﻿.usersList {
-	margin: 3em 0 0 9.7em;
+	margin: 3em auto 0;
 	width: 50em;
 	height: 6.4em;
 	padding: 1em 0 1em 2em;
-	border: 2px solid #00ffff;
+	border: 2px solid #202020;
 	border-radius: 2em;
 	color: white;
+	background: #202020;
 }
 
 .conteiner-buttons {
@@ -22,3 +23,20 @@
 .email {
 	margin-right: 3.25em;
 }
+
+.delete-user-by-admin a {
+	text-decoration: none;
+	background: none;
+	text-align: center;
+	width: 7em;
+	height: 2em;
+	padding: 0.2em 0;
+	color: white;
+	border-radius: 24px;
+	cursor: pointer;
+	display: block;
+}
+
+	.delete-user-by-admin a:hover {
+		background: #484848;
+	}

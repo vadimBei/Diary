@@ -7,6 +7,6 @@ namespace Diary.BLL.Services.SearchService
 {
 	public interface ISearchService
 	{
-		Task<IEnumerable<RecordModel>> RecordsByCurrentUser(SearchModel searchModel);
+		Task<IEnumerable<RecordModel>> RecordsByCurrentUserAcync(SearchModel searchModel);
 	}
 }

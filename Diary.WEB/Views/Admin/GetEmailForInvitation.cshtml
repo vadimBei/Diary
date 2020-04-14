@@ -1,7 +1,10 @@
 ﻿@model Diary.WEB.ViewModels.Invite.InviteViewModel
 
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <link href="~/css/invitation.css" rel="stylesheet" type="text/css" />
-<link href="~/css/buttons.css" rel="stylesheet" type="text/css" />
 
 <div class="invite">
 
@@ -17,18 +20,18 @@
 
 			<p>
 				<span>Введіть текст запрошення</span>
-				<input type="text" placeholder="Текст запрошення" asp-for="Message" />
+				<input type="text" placeholder="Запрошення" asp-for="Message" />
 				<span asp-validation-for="Message"></span>
 			</p>
 
 			<p>
-				так не буде
-				<label asp-for="EmailNewUser">Email користувача, якому надіслати запрошення:</label>
+				<span>Email користувача, якому надіслати запрошення</span>
 				<input type="email" placeholder="Email" asp-for="EmailNewUser">
 				<span asp-validation-for="EmailNewUser"></span>
 			</p>
-
-			<input type="submit" value="Запросити" />
+			<div class="send-invitation">
+				<input type="submit" value="Запросити" />
+			</div>
 		</div>
 	</form>
 </div>

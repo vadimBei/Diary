@@ -1,52 +1,34 @@
 ﻿@model Diary.WEB.ViewModels.Account.RegisterViewModel
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Реєстрація на сайті • Day book</title>
-	<link href="~/css/registration.css" rel="stylesheet" type="text/css" />
-	<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-</head>
-<body style="background-color: #0d1428;">
-	<div>
-		<form class="box" method="post" asp-controller="Account" asp-action="Register">
-			
-			<h1>Day book</h1>
 
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<title>Реєстрація на сайті • Day book</title>
+<link href="~/css/registration.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-			<div>
-				<input asp-for="UserName" placeholder="Нікнейм" />
-				<span class="text-danger"></span>
+<form method="post" asp-controller="Account" asp-action="Register">
+	<div class="register-form">
+
+		<h1>Day book</h1>
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<input type="text" asp-for="UserName" placeholder="Нікнейм" />
+
+		<input type="email" asp-for="Email" placeholder="Email" />
+
+		<input type="password" asp-for="Password" placeholder="Пароль" />
+
+		<input type="password" asp-for="ConfirmPassword" placeholder="Підтвердіть пароль" />
+
+		<div>
+			<div class="input-group-prepend captcha">
+				<img id="img-captcha" src="~/get-captcha-image" />
 			</div>
 
-			<div>
-				<input type="text" asp-for="Email" placeholder="Email" />
-				<span asp-validation-for="Email"></span>
-			</div>
+			<input type="text" asp-for="Captcha" placeholder="Captcha Code" maxlength="4" autocomplete="off"/>
+		</div>
 
-			<div>
-				<input asp-for="Password" placeholder="Пароль" />
-				<span asp-validation-for="Password"></span>
-			</div>
-
-			<div>
-				<input asp-for="ConfirmPassword" placeholder="Підтвердіть пароль" />
-				<span asp-validation-for="ConfirmPassword"></span>
-			</div>
-
-			<div>
-				<div class="input-group-prepend">
-					<img id="img-captcha" src="~/get-captcha-image" />
-				</div>
-
-				<input placeholder="Captcha Code" asp-for="Captcha" maxlength="4" />
-				<span asp-validation-for="Captcha" class="text-danger"></span>
-			</div>
-
-			<div class="register-submit">
-				<input type="submit" value="Зареєструватись" />
-			</div>
-		</form>
+		<div class="register-submit">
+			<input type="submit" value="Зареєструватись" />
+		</div>
 	</div>
-</body>
-</html>
+</form>

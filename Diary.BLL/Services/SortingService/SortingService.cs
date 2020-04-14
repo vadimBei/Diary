@@ -11,7 +11,7 @@ namespace Diary.BLL.Services.SortingService
 	{
 		public IEnumerable<RecordModel> SortingRecordsByDate(IEnumerable<RecordModel> recordModels)
 		{
-			recordModels = recordModels.OrderByDescending(d => d.DateCreation).ToList();
+			recordModels = recordModels.OrderByDescending(d => d.ModifiedDate).ToList();
 
 			return recordModels;
 		}

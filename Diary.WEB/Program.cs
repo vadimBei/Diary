@@ -39,10 +39,6 @@ namespace Diary.WEB
 		public static IWebHost BuildWebHost(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
 			.UseStartup<Startup>()
-			 .UseKestrel(options =>
-			 {
-				 options.Limits.MaxRequestBodySize = 52428800; //50MB
-			 })
 			.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace))
 			.Build();
 	}

@@ -22,6 +22,8 @@ namespace Diary.WEB.ViewModels.Record
 
 		public UserViewModel UserViewModel { get; set; }
 
+		public bool IsImage { get; set; }
+
 		public byte[] IvKey { get; set; }
 
 		public List<UploadedFileViewModel> UploadedFileViewModels { get; set; }

@@ -212,7 +212,7 @@ namespace Diary.WEB.Controllers
 				new { userEmail = email },
 				protocol: HttpContext.Request.Scheme);
 
-			await _emailSender.SendEmail(email, "Відновлення паролю",
+			await _emailSender.SendEmailAcync(email, "Відновлення паролю",
 			 $"Для відновлення паролю, передіть за посиланням <a href='{callBack}'>Diary</a>");
 
 			return RedirectToAction("Login", "Account");
@@ -221,11 +221,6 @@ namespace Diary.WEB.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ChangePasswordWithoutOld(string userEmail)
 		{
-			if (HttpContext.User.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Index", "Home");
-			}
-
 			var user = await _userManager.FindByEmailAsync(userEmail);
 
 			if (user == null)
@@ -289,8 +284,14 @@ namespace Diary.WEB.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin, user")]
 		public async Task<IActionResult> ChangePassword()
 		{
+			if (!HttpContext.User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Login", "Account");
+			}
+
 			var currentUser = HttpContext.User.Identity.Name;
 			var user = await _userManager.FindByNameAsync(currentUser);
 
@@ -309,6 +310,7 @@ namespace Diary.WEB.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin, user")]
 		public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePasswordViewModel)
 		{
 			if (ModelState.IsValid)

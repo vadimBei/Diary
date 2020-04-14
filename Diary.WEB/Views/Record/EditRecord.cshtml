@@ -1,10 +1,12 @@
 ﻿@model Diary.WEB.ViewModels.Record.RecordViewModel
 
-<link href="~/css/edit.css" rel="stylesheet" type="text/css" />
+<link href="~/css/editRecord.css" rel="stylesheet" type="text/css" />
+<link href="~/css/downloadElement.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-<form asp-action="EditRecord" asp-controller="Record" method="post" asp-route-id="@Model.Id">
+<form asp-action="EditRecord" asp-controller="Record" method="post" asp-route-id="@Model.Id" enctype="multipart/form-data">
 
-	<div class="box">
+	<div class="record-form">
 
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -12,7 +14,10 @@
 
 		<div>
 			<span>Назва</span>
-			<input type="text" asp-for="Name" />
+			<b>
+				<input type="text" asp-for="Name" />
+			</b>
+
 		</div>
 
 		<div>
@@ -20,45 +25,48 @@
 			<textarea type="text" asp-for="Text"></textarea>
 		</div>
 
-		@if (Model.UploadedFileViewModels != null)
-		{
-			foreach (var item in Model.UploadedFileViewModels)
-			{
-				@*<img src="@item.Path" width="189" height="255" alt="Упс, щось пішло не так(((" /><img />*@
-				<p>
-					<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
-						@item.Name
-					</a>
-				</p>
-			}
-		}
-
-		<hr />
-
 		<div class="dataBox">
-			@if (Model.ModifiedDate != DateTime.MinValue)
-			{
-				<div class="ModifiedDate">
-					<p>Дата останього змінення: @Model.ModifiedDate</p>
-				</div>
-				<br />
-			}
-			else
-			{
-				<div class="ModifiedDate">
-					<p>Дата останього редагування: @Model.DateCreation</p>
-				</div>
-				<br />
+			<p>Дата останього редагування: @Model.DateCreation</p>
 
-			}
-
-			<div class="DateCreation">
-				<p>Створено: @Model.DateCreation</p>
-			</div>
+			<p>Створено: @Model.DateCreation</p>
 		</div>
 
-		<div class="submit">
-			<input type="submit" value="Зберегти" />
+		<div class="selected-files">
+			<input class="chooseFile" type="file" asp-for="UploadedFiles" multiple />
 		</div>
+
+		<div class="elements">
+			@if (Model.UploadedFileViewModels.Any())
+			{
+				@foreach (var item in Model.UploadedFileViewModels)
+				{
+					@if (item.IsImage == true)
+					{
+						<p>
+							@*<img src="~/image/@item.Name" alt="Упс, щось пішло не так(((" /><img />*@
+							<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+								<img class="download-icon" src="~/download1_78499.png" />
+							</a>
+							<b>@item.Name</b>
+						</p>
+					}
+					else
+					{
+						<p>
+							<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+								<img class="download-icon" src="~/download1_78499.png" />
+							</a>
+							<b>@item.Name</b>
+						</p>
+					}
+				}
+			}
+		</div>
+		
+		<div class="comeBack">
+			<a asp-action="Index" asp-controller="Home">На головну</a>
+		</div>
+
+		<input type="submit" value="Зберегти" />
 	</div>
 </form>

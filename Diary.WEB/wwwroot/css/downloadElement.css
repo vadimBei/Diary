@@ -1,0 +1,16 @@
+﻿.download-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.elements {
+	display: block;
+	flex-direction: column;
+	color: white;
+	float: left;
+	width: 100%;
+}
+
+	.elements p {
+		margin: 0 auto 1em;
+	}

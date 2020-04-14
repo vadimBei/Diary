@@ -10,6 +10,8 @@ namespace Diary.BLL.Models.UploadedFile
 
 		public string Path { get; set; }
 
+		public bool IsImage { get; set; }
+
 		public Guid RecordId { get; set; }
 
 		public DateTime DateCreation { get; set; }

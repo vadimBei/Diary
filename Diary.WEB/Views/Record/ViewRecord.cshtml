@@ -1,30 +1,54 @@
 ﻿@model Diary.WEB.ViewModels.Record.RecordViewModel
 
 <link href="~/css/viewRecord.css" rel="stylesheet" type="text/css" />
+<link href="~/css/downloadElement.css" rel="stylesheet" type="text/css" />
 
-
-<div class="viewBox">
-	<div class="nameBox">
+<div class="view-form">
+	<div class="header">
 		<b>@Model.Name</b>
 	</div>
 
-	<div class="textBox">
-		<p class="text">@Model.Text</p>
+	<div class="text">
+		<p>@Model.Text</p>
 	</div>
 
-	@foreach (var item in Model.UploadedFileViewModels)
-	{
-		@*<img src="@item.Path" width="189" height="255" alt="Упс, щось пішло не так(((" /><img />*@
-		<p>
-			<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
-				@item.Name
-			</a>
-		</p>
-	}
+	<div class="dataBox">
+		<p>Дата останнього редагування: @Model.ModifiedDate</p>
 
-	<hr />
+		<p>Створено: @Model.DateCreation</p>
+	</div>
+
+
+
+	<div class="elements">
+		@if (Model.UploadedFileViewModels.Any())
+		{
+			@foreach (var item in Model.UploadedFileViewModels)
+			{
+				@if (item.IsImage == true)
+				{
+					<p>
+						@*<img src="~/image/@item.Name" alt="Упс, щось пішло не так(((" /><img />*@
+						<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+							<img class="download-icon" src="~/download1_78499.png" />
+						</a>
+						<b>@item.Name</b>
+					</p>
+				}
+				else
+				{
+					<p>
+						<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+							<img class="download-icon" src="~/download1_78499.png" />
+						</a>
+						<b>@item.Name</b>
+					</p>
+				}
+			}
+		}
+	</div>
 
 	<div class="comeBack">
-		<a asp-action="Index" asp-controller="Home">Назад</a>
+		<a asp-action="Index" asp-controller="Home">На головну</a>
 	</div>
 </div>

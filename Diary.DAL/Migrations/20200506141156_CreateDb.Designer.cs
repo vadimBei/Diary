@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diary.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200114091458_CreateDB")]
-    partial class CreateDB
+    [Migration("20200506141156_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,6 +110,8 @@ namespace Diary.DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreation");
+
+                    b.Property<bool>("IsImage");
 
                     b.Property<DateTime>("ModifiedDate");
 

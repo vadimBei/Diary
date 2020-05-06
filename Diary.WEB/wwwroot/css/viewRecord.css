@@ -58,9 +58,21 @@
 	color: white;
 	float: left;
 	font-size: 12px;
-	margin-bottom: 0.5em;width: 100%;
+	margin-bottom: 0.5em;
+	width: 100%;
 }
 
 	.dataBox p {
 		margin: 0 0;
 	}
+
+.image{
+	display: block;
+	width: 8em;
+	height: 10em;
+}
+
+.image image{
+	width: 100%;
+	height: 100%;
+}

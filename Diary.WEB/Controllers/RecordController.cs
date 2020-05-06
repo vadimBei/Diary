@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Diary.WEB.Controllers
 {
 	[Authorize(Roles = "admin, user")]
@@ -123,7 +124,6 @@ namespace Diary.WEB.Controllers
 			if (id == null)
 			{
 				return NotFound();
-
 			}
 
 			var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);

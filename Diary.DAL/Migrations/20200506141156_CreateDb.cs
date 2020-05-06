@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Diary.DAL.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -204,6 +204,7 @@ namespace Diary.DAL.Migrations
                     ModifiedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Path = table.Column<string>(nullable: true),
+                    IsImage = table.Column<bool>(nullable: false),
                     RecordId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

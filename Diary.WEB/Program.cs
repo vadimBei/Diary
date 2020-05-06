@@ -1,4 +1,7 @@
-﻿using Diary.DAL.Common;
+﻿using Diary.BLL.Infrastructure;
+using Diary.BLL.Models.User;
+using Diary.BLL.Services.AesCryptoProvider;
+using Diary.DAL.Common;
 using Diary.DAL.Entities;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -22,9 +25,13 @@ namespace Diary.WEB
 				var services = scope.ServiceProvider;
 				try
 				{
+					var aesCryptoProviderService = services.GetRequiredService<IAesCryptoProviderService>();
+
 					var userManager = services.GetRequiredService<UserManager<User>>();
 					var rolesManager = services.GetRequiredService<RoleManager<AppRole>>();
-					await DbInitializer.InitializeAsync(userManager, rolesManager);
+
+					DbInitializer dbInitializer = new DbInitializer();
+					await dbInitializer.InitializeAsync(userManager, rolesManager, aesCryptoProviderService);
 				}
 				catch (Exception ex)
 				{
@@ -42,5 +49,4 @@ namespace Diary.WEB
 			.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace))
 			.Build();
 	}
-
 }

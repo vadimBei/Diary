@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Diary.BLL.Models.Invite;
-using Diary.BLL.Models.User;
 using Diary.BLL.Services.AesCryptoProvider;
 using Diary.BLL.Services.EmailSender;
 using Diary.BLL.Services.InviteService;
@@ -12,7 +11,6 @@ using Diary.WEB.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -89,49 +87,6 @@ namespace Diary.WEB.Controllers
 				$"{inviteViewModel.Message} <a href='{callBack}'>Diary</a>");
 
 			return RedirectToAction("Index", "Home");
-		}
-
-
-		[HttpGet]
-		public async Task<IActionResult> CryptoKey()
-		{
-			var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-
-			var admin = _userService.Get(currentUser.Id);
-
-			var userViewModel = new UserViewModel();
-
-			if (admin.CryptoKey == null)
-			{
-				userViewModel.EmptyCryptoKey = true;
-			}
-
-			return View(userViewModel);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> CreateCryptokey()
-		{
-			var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-
-			var cryptoKey = _aesCryptoProvider.GenerateKey();
-
-			var admin = _userService.Get(currentUser.Id);
-
-			var updatedAdmin = _mapper.Map<UserUpdateModel>(new UserUpdateModel
-			{
-				Id = admin.Id,
-				CryptoKey = cryptoKey,
-				Email = admin.Email,
-				DateCreation = admin.DateCreation,
-				ModifiedDate = DateTime.Now,
-				UserName = admin.UserName
-				
-			});
-
-			_userService.Update(updatedAdmin);
-
-			return RedirectToAction("Cryptokey", "Admin");
 		}
 	}
 }

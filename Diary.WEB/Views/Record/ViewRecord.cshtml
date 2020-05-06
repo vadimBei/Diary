@@ -18,8 +18,6 @@
 		<p>Створено: @Model.DateCreation</p>
 	</div>
 
-
-
 	<div class="elements">
 		@if (Model.UploadedFileViewModels.Any())
 		{
@@ -27,13 +25,15 @@
 			{
 				@if (item.IsImage == true)
 				{
-					<p>
-						@*<img src="~/image/@item.Name" alt="Упс, щось пішло не так(((" /><img />*@
-						<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
-							<img class="download-icon" src="~/download1_78499.png" />
-						</a>
-						<b>@item.Name</b>
-					</p>
+					<div class="image">
+						<p>
+							<img src="~/images/@item.Name" alt="Упс, щось пішло не так((("/><img />
+							<a asp-action="Download" asp-controller="Record" asp-route-fileName="@item.Name">
+								<img class="download-icon" src="~/download1_78499.png" />
+							</a>
+							<b>@item.Name</b>
+						</p>
+					</div>
 				}
 				else
 				{

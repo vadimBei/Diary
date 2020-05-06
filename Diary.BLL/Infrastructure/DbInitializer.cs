@@ -1,17 +1,22 @@
-﻿using Diary.DAL.Entities;
+﻿using Diary.BLL.Services.AesCryptoProvider;
+using Diary.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
 
-namespace Diary.DAL.Common
+namespace Diary.BLL.Infrastructure
 {
 	public class DbInitializer
 	{
-		public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<AppRole> roleManager)
+		public DbInitializer()
 		{
-			string adminEmail = "bey1705@gmail.com";
-			string adminPassword = "Vados@17";
+		}
+
+		public async Task InitializeAsync(UserManager<User> userManager, RoleManager<AppRole> roleManager, IAesCryptoProviderService aesCryptoProviderService)
+		{
+			string adminEmail = "admin@gmail.com";
+			string adminPassword = "Admin@49";
 			string adminName = "Adminchuk";
 
 			if (await roleManager.FindByNameAsync("admin") == null)
@@ -24,11 +29,15 @@ namespace Diary.DAL.Common
 			}
 			if (await userManager.FindByNameAsync(adminEmail) == null)
 			{
-				var admin = new User {
+				var key = aesCryptoProviderService.GenerateKey();
+
+				var admin = new User()
+				{
 					Email = adminEmail,
 					UserName = adminName,
 					DateCreation = DateTime.Now,
-					ModifiedDate = DateTime.Now
+					ModifiedDate = DateTime.Now,
+					CryptoKey = key
 				};
 
 				IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
